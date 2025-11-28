@@ -12,4 +12,9 @@ video{
     left: 16px; top: 16px;
     background-color: blueviolet;
     min-width: 40px; min-height: 40px;
+    z-index: 20;
+}
+canvas{
+    position: absolute;
+    left: 0; top: 0;
 }

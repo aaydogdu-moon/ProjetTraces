@@ -1,49 +1,47 @@
 // render.js
-const video = document.querySelector('video')
-// let p5Instance = null
+
+var video;
 
 window.onload = () => {
+  video = document.querySelector('#screenVideo')
   navigator.mediaDevices.getDisplayMedia({
     audio: true,
     video: {
-      // width: 1000,
-      // height: 800,
       frameRate: 30
     }
   }).then(stream => {
     video.srcObject = stream
+    console.log(stream)
     video.onloadedmetadata = () => {
       video.play()
-
-      //lance p5 UNE FOIS quand la vidéo est prête
-      // if (!p5Instance) {
-      //   startP5()
-      // }
+      p5Video = new p5.Element(video);
     }
   }).catch(e => console.log(e))
 }
 
-// sketch p5 
-// function startP5 () {
-//   p5Instance = new p5((p) => {
 
-//     p.setup = () => {
-//       p.createCanvas(1000, 800)
-//     }
+function setup(){
+  createCanvas(document.body.offsetWidth, document.body.offsetHeight);
+  background(240);
+}
 
-//     p.draw = () => {
-//       if (!video || video.readyState < 2) return
+let p5Video;
 
-//       // dessine la vidéo capturée dans le canvas p5
-//       p.image(video, 0, 0, p.width, p.height)
+function draw(){
+  // background(0); 
+  // rect(50,50,50,50);
+  // console.log(video.readyState)
 
-//       // exemple : texte qui suit la souris
-//       p.fill(255, 0, 0)
-//       p.textSize(32)
-//       p.text('hello', p.mouseX, p.mouseY)
+  // if (video && video.readyState >= 2) {
+  //   if(!p5Video) p5Video = new p5.Element(video);
+  //   image(p5Video, 0, 0, width, height);
+  //   // dessine la capture d'écran dans le canvas p5
+  // }
 
-     
-//     }
+  
+  if (p5Video) {
+    image(p5Video, 0, 0, width, height);
+  }
+  text("je suis un texte", mouseX, mouseY);
+}
 
-//   }, 'p5-container') 
-// }
