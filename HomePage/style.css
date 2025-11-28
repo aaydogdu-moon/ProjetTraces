@@ -1,0 +1,15 @@
+body{
+    margin: 0;
+    overflow: hidden;
+}
+
+video{
+    max-width: 100vw;
+}
+
+.logo-container{
+    position: absolute;
+    left: 16px; top: 16px;
+    background-color: blueviolet;
+    min-width: 40px; min-height: 40px;
+}

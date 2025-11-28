@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta http-equiv="content-security-policy" content="script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <!-- Vidéo cachée pour la capture -->
+    <video id="screenVideo"></video>
+    <div class="logo-container">
+      <img src="" alt="">
+    </div>
+
+    <!-- Canvas p5 -->
+    <div id="p5-container"></div>
+
+    <!-- Charger p5 en premier -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+
+    <!-- Ton code -->
+    <script src="render.js"></script>
+  </body>
+</html>
