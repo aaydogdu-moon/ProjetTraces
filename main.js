@@ -22,7 +22,7 @@ function createWindow() {
     // height: 600,
     frame: false,          // si tu veux un overlay propre
     // transparent: true,     // pour laisser voir le bureau
-    // alwaysOnTop: true,     // reste au-dessus (optionnel)
+    alwaysOnTop: true,     // reste au-dessus (optionnel)
     // focusable: false       // la fenêtre ne prend jamais le focus (Windows/Linux)
   });
   
@@ -33,7 +33,7 @@ function createWindow() {
 
   // >>> ICI : rendre la fenêtre non cliquable <<<
   // mainWindow.setIgnoreMouseEvents(true);
-  // mainWindow.setIgnoreMouseEvents(true, { forward: true }) // overlay non cliquable
+  mainWindow.setIgnoreMouseEvents(true, { forward: true }) // overlay non cliquable
   mainWindow.setContentProtection(true)                    // exclu des captures
 }
 

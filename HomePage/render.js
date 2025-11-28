@@ -1,47 +1,48 @@
 // render.js
 
 var video;
+let p5Video;
 
-window.onload = () => {
-  video = document.querySelector('#screenVideo')
+function setup(){
+  let canvas = createCanvas(windowWidth, windowHeight);
+  background(240);
+  
+  // Initialize video capture after p5 is ready
+  video = document.querySelector('#screenVideo');
+
   navigator.mediaDevices.getDisplayMedia({
     audio: true,
     video: {
       frameRate: 30
     }
   }).then(stream => {
-    video.srcObject = stream
-    console.log(stream)
+    video.srcObject = stream;
+
     video.onloadedmetadata = () => {
-      video.play()
-      p5Video = new p5.Element(video);
+      video.play();
+      setTimeout(() => {
+        initVideoElement();
+      }, 500);
     }
-  }).catch(e => console.log(e))
+  }).catch(e => console.log(e));
 }
+let capture;
 
+function initVideoElement(){
+  p5Video = new p5.Element(video);
+  
+  console.log(p5Video);
 
-function setup(){
-  createCanvas(document.body.offsetWidth, document.body.offsetHeight);
-  background(240);
+  // console.log(p5Video);
+  console.log("ok video ready");
 }
-
-let p5Video;
 
 function draw(){
-  // background(0); 
-  // rect(50,50,50,50);
-  // console.log(video.readyState)
-
-  // if (video && video.readyState >= 2) {
-  //   if(!p5Video) p5Video = new p5.Element(video);
-  //   image(p5Video, 0, 0, width, height);
-  //   // dessine la capture d'écran dans le canvas p5
-  // }
-
+  background(0); 
   
-  if (p5Video) {
-    image(p5Video, 0, 0, width, height);
-  }
-  text("je suis un texte", mouseX, mouseY);
+  if (video && video.readyState === 4 && video.videoWidth > 0) {
+    drawingContext.drawImage(video, 0, 0, width, height);
+  } 
 }
+
 
