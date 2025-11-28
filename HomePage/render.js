@@ -41,7 +41,7 @@ function draw(){
   background(0); 
   
   if (video && video.readyState === 4 && video.videoWidth > 0) {
-    drawingContext.drawImage(video, 0, 0, width, height);
+    drawingContext.drawImage(video, 0, 0, width, height + 40);
   } 
 }
 
