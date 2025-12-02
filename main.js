@@ -23,7 +23,7 @@ function createWindow() {
     frame: false,          // si tu veux un overlay propre
     // transparent: true,     // pour laisser voir le bureau
     alwaysOnTop: true,     // reste au-dessus (optionnel)
-    // focusable: false       // la fenêtre ne prend jamais le focus (Windows/Linux)
+    focusable: false       // la fenêtre ne prend jamais le focus (Windows/Linux)
   });
   
   mainWindow.maximize();
@@ -35,5 +35,10 @@ function createWindow() {
   // mainWindow.setIgnoreMouseEvents(true);
   mainWindow.setIgnoreMouseEvents(true, { forward: true }) // overlay non cliquable
   mainWindow.setContentProtection(true)                    // exclu des captures
-}
 
+    
+  mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
+    item.setSavePath('./temp/' + item.getFilename())
+  })
+
+}
