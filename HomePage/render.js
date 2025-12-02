@@ -52,6 +52,8 @@ let sampleRadius = 2;
 let lastX = null;
 let lastY = null;
 
+let saveFrameIndex = 0;
+let saveFrameImageCount = 0;
 function draw(){
   // 1) dessiner la vidéo
   if (video && video.readyState === 4 && video.videoWidth > 0) {
@@ -92,6 +94,15 @@ function draw(){
   // // 6) on met à jour la dernière position
   // lastX = mouseX;
   // lastY = mouseY;
+
+  saveFrameIndex ++;
+  if(saveFrameIndex > 60)
+  {
+    saveFrames('frame-' + saveFrameImageCount, 'png', 1, 1);
+    saveFrameImageCount ++;
+    saveFrameIndex = 0;
+  }
+
 }
 
 function applySmearAt(cx, cy) { 
@@ -130,10 +141,4 @@ function applySmearAt(cx, cy) {
   }
 
   trailLayer.updatePixels();
-}
-
-function keyPressed() {
-  if (key === 's') {
-    saveFrames('frame', 'png', 1, 5);
-  }
 }

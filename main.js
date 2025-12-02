@@ -1,5 +1,7 @@
 // main.js
 const { app, BrowserWindow, desktopCapturer, session } = require('electron')
+const fs = require('fs')
+const path = require('path')
 
 app.whenReady().then(() => {
   session.defaultSession.setDisplayMediaRequestHandler((request, callback) => {
@@ -37,8 +39,27 @@ function createWindow() {
   mainWindow.setContentProtection(true)                    // exclu des captures
 
     
-  mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
-    item.setSavePath('./temp/' + item.getFilename())
-  })
+const downloadDir = path.join(__dirname, "screenshots");
 
+    if (!fs.existsSync(downloadDir)) fs.mkdirSync(downloadDir)
+
+    session.defaultSession.on('will-download', (event, item, webContents) => {
+      
+      // Chemin complet du fichier
+      const filePath = path.join(downloadDir, item.getFilename())
+      
+      // On désactive le popup
+      item.setSavePath(filePath)
+
+      console.log('Download started:', item.getFilename())
+
+      item.once('done', (event, state) => {
+        if (state === 'completed') {
+          console.log('Download finished:', filePath)
+        } else {
+          console.warn('Download failed: ', state)
+        }
+      })
+    })
+s
 }
